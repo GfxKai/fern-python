@@ -16,7 +16,6 @@ def _export(*name: str) -> AST.ClassReference:
 
 
 class JSONResponse:
-
     REFERENCE = _export("responses", "JSONResponse")
 
     @staticmethod
@@ -33,7 +32,6 @@ class JSONResponse:
 
 
 class APIRouter:
-
     REFERENCE = _export("APIRouter")
 
     @staticmethod
