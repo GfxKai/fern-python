@@ -9,9 +9,7 @@ from fern_python.source_file_generator import SourceFileGenerator
 from ..context import FastApiGeneratorContext
 from .service_initializer import ServiceInitializer
 
-FAST_API_REGISTRATION_ARGS = [
-    ("dependencies", AST.TypeHint(type=(AST.TypeHint.optional(AST.TypeHint.iterator(FastAPI.DependsType)))))
-]
+FAST_API_REGISTRATION_ARGS = [("dependencies", AST.TypeHint.iterator(FastAPI.DependsType))]
 
 
 class RegisterFileGenerator:
@@ -56,7 +54,7 @@ class RegisterFileGenerator:
                     service_initializer.get_register_parameter() for service_initializer in self._service_initializers
                 ]
                 + [
-                    AST.FunctionParameter(name=reg_arg[0], type_hint=reg_arg[1], initializer=None)
+                    AST.NamedFunctionParameter(name=reg_arg[0], type_hint=reg_arg[1], initializer=None)
                     for reg_arg in FAST_API_REGISTRATION_ARGS
                 ],
                 return_type=AST.TypeHint.none(),

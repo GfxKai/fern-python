@@ -77,6 +77,8 @@ class FastAPI:
 
     JSONResponse = JSONResponse
 
+    DependsType = AST.TypeHint(type=_export("Depends"))
+
     @staticmethod
     def Depends(dependency: AST.Expression) -> AST.Expression:
         return AST.Expression(

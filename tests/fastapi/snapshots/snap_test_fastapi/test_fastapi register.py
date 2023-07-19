@@ -4,6 +4,7 @@ import glob
 import importlib
 import os
 import types
+import typing
 
 import fastapi
 import starlette
@@ -35,18 +36,19 @@ def register(
     submission: AbstractSubmissionService,
     sysprop: AbstractSyspropService,
     v_2_problem: AbstractV2ProblemService,
-    v_2_v_3_problem: AbstractV2V3ProblemService
+    v_2_v_3_problem: AbstractV2V3ProblemService,
+    dependencies: typing.Iterator[fastapi.Depends]
 ) -> None:
-    _app.include_router(__register_service(v_2))
-    _app.include_router(__register_service(admin))
-    _app.include_router(__register_service(homepage))
-    _app.include_router(__register_service(migration))
-    _app.include_router(__register_service(playlist))
-    _app.include_router(__register_service(problem))
-    _app.include_router(__register_service(submission))
-    _app.include_router(__register_service(sysprop))
-    _app.include_router(__register_service(v_2_problem))
-    _app.include_router(__register_service(v_2_v_3_problem))
+    _app.include_router(__register_service(v_2, dependencies))
+    _app.include_router(__register_service(admin, dependencies))
+    _app.include_router(__register_service(homepage, dependencies))
+    _app.include_router(__register_service(migration, dependencies))
+    _app.include_router(__register_service(playlist, dependencies))
+    _app.include_router(__register_service(problem, dependencies))
+    _app.include_router(__register_service(submission, dependencies))
+    _app.include_router(__register_service(sysprop, dependencies))
+    _app.include_router(__register_service(v_2_problem, dependencies))
+    _app.include_router(__register_service(v_2_v_3_problem, dependencies))
 
     _app.add_exception_handler(FernHTTPException, fern_http_exception_handler)
     _app.add_exception_handler(starlette.exceptions.HTTPException, http_exception_handler)

@@ -4,6 +4,7 @@ import glob
 import importlib
 import os
 import types
+import typing
 
 import fastapi
 import starlette
@@ -14,8 +15,10 @@ from .core.exceptions.fern_http_exception import FernHTTPException
 from .resources.movie.service.service import AbstractMovieService
 
 
-def register(_app: fastapi.FastAPI, *, movie: AbstractMovieService) -> None:
-    _app.include_router(__register_service(movie))
+def register(
+    _app: fastapi.FastAPI, *, movie: AbstractMovieService, dependencies: typing.Iterator[fastapi.Depends]
+) -> None:
+    _app.include_router(__register_service(movie, dependencies))
 
     _app.add_exception_handler(FernHTTPException, fern_http_exception_handler)
     _app.add_exception_handler(starlette.exceptions.HTTPException, http_exception_handler)
