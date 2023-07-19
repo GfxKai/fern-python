@@ -1,4 +1,3 @@
-from typing import Sequence
 import fern.ir.resources as ir_types
 
 from fern_python.codegen import AST, Filepath, Project
@@ -72,10 +71,10 @@ class RegisterFileGenerator:
                         function_definition=AST.Reference(
                             qualified_name_excluding_import=(RegisterFileGenerator._REGISTER_SERVICE_FUNCTION_NAME,)
                         ),
-                        args=[AST.Expression(parameter_name)]
-                        + [AST.Expression(reg_arg[0]) for reg_arg in FAST_API_REGISTRATION_ARGS],
+                        args=[AST.Expression(parameter_name)],
                     )
                 ),
+                args=[AST.Expression(reg_arg[0]) for reg_arg in FAST_API_REGISTRATION_ARGS],
             )
             if service_initializer.is_in_development:
                 writer.write_line(f"if {parameter_name} is not None:")
