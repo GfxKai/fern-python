@@ -37,18 +37,18 @@ def register(
     sysprop: AbstractSyspropService,
     v_2_problem: AbstractV2ProblemService,
     v_2_v_3_problem: AbstractV2V3ProblemService,
-    dependencies: typing.Iterator[fastapi.Depends]
+    dependencies: typing.List[fastapi.Depends]
 ) -> None:
-    _app.include_router(__register_service(v_2), dependencies=typing.Iterator[fastapi.Depends])
-    _app.include_router(__register_service(admin), dependencies=typing.Iterator[fastapi.Depends])
-    _app.include_router(__register_service(homepage), dependencies=typing.Iterator[fastapi.Depends])
-    _app.include_router(__register_service(migration), dependencies=typing.Iterator[fastapi.Depends])
-    _app.include_router(__register_service(playlist), dependencies=typing.Iterator[fastapi.Depends])
-    _app.include_router(__register_service(problem), dependencies=typing.Iterator[fastapi.Depends])
-    _app.include_router(__register_service(submission), dependencies=typing.Iterator[fastapi.Depends])
-    _app.include_router(__register_service(sysprop), dependencies=typing.Iterator[fastapi.Depends])
-    _app.include_router(__register_service(v_2_problem), dependencies=typing.Iterator[fastapi.Depends])
-    _app.include_router(__register_service(v_2_v_3_problem), dependencies=typing.Iterator[fastapi.Depends])
+    _app.include_router(__register_service(v_2), dependencies=dependencies)
+    _app.include_router(__register_service(admin), dependencies=dependencies)
+    _app.include_router(__register_service(homepage), dependencies=dependencies)
+    _app.include_router(__register_service(migration), dependencies=dependencies)
+    _app.include_router(__register_service(playlist), dependencies=dependencies)
+    _app.include_router(__register_service(problem), dependencies=dependencies)
+    _app.include_router(__register_service(submission), dependencies=dependencies)
+    _app.include_router(__register_service(sysprop), dependencies=dependencies)
+    _app.include_router(__register_service(v_2_problem), dependencies=dependencies)
+    _app.include_router(__register_service(v_2_v_3_problem), dependencies=dependencies)
 
     _app.add_exception_handler(FernHTTPException, fern_http_exception_handler)
     _app.add_exception_handler(starlette.exceptions.HTTPException, http_exception_handler)

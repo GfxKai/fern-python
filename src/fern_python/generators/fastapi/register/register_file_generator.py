@@ -8,7 +8,7 @@ from fern_python.source_file_generator import SourceFileGenerator
 from ..context import FastApiGeneratorContext
 from .service_initializer import ServiceInitializer
 
-FAST_API_REGISTRATION_ARGS = [("dependencies", AST.TypeHint.iterator(FastAPI.DependsType))]
+FAST_API_REGISTRATION_ARGS = [("dependencies", AST.TypeHint.list(FastAPI.DependsType))]
 
 
 class RegisterFileGenerator:
@@ -74,7 +74,7 @@ class RegisterFileGenerator:
                         args=[AST.Expression(parameter_name)],
                     )
                 ),
-                kwargs=FAST_API_REGISTRATION_ARGS,
+                kwargs=[(reg_arg[0], AST.Expression(reg_arg[0])) for reg_arg in FAST_API_REGISTRATION_ARGS],
             )
             if service_initializer.is_in_development:
                 writer.write_line(f"if {parameter_name} is not None:")
