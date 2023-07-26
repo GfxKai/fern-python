@@ -50,8 +50,7 @@ class RegisterFileGenerator:
                     AST.FunctionParameter(name=RegisterFileGenerator._APP_PARAMETER_NAME, type_hint=FastAPI.FastAPI),
                 ],
                 named_parameters=[
-                    service_initializerodal.get_register_parameter()
-                    for service_initializer in self._service_initializers
+                    service_initializer.get_register_parameter() for service_initializer in self._service_initializers
                 ]
                 + [
                     AST.NamedFunctionParameter(name=reg_arg[0], type_hint=reg_arg[1], initializer=None)
