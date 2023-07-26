@@ -39,16 +39,16 @@ def register(
     v_2_v_3_problem: AbstractV2V3ProblemService,
     dependencies: typing.Iterator[fastapi.Depends]
 ) -> None:
-    _app.include_router(__register_service(v_2), dependencies)
-    _app.include_router(__register_service(admin), dependencies)
-    _app.include_router(__register_service(homepage), dependencies)
-    _app.include_router(__register_service(migration), dependencies)
-    _app.include_router(__register_service(playlist), dependencies)
-    _app.include_router(__register_service(problem), dependencies)
-    _app.include_router(__register_service(submission), dependencies)
-    _app.include_router(__register_service(sysprop), dependencies)
-    _app.include_router(__register_service(v_2_problem), dependencies)
-    _app.include_router(__register_service(v_2_v_3_problem), dependencies)
+    _app.include_router(__register_service(v_2), dependencies=typing.Iterator[fastapi.Depends])
+    _app.include_router(__register_service(admin), dependencies=typing.Iterator[fastapi.Depends])
+    _app.include_router(__register_service(homepage), dependencies=typing.Iterator[fastapi.Depends])
+    _app.include_router(__register_service(migration), dependencies=typing.Iterator[fastapi.Depends])
+    _app.include_router(__register_service(playlist), dependencies=typing.Iterator[fastapi.Depends])
+    _app.include_router(__register_service(problem), dependencies=typing.Iterator[fastapi.Depends])
+    _app.include_router(__register_service(submission), dependencies=typing.Iterator[fastapi.Depends])
+    _app.include_router(__register_service(sysprop), dependencies=typing.Iterator[fastapi.Depends])
+    _app.include_router(__register_service(v_2_problem), dependencies=typing.Iterator[fastapi.Depends])
+    _app.include_router(__register_service(v_2_v_3_problem), dependencies=typing.Iterator[fastapi.Depends])
 
     _app.add_exception_handler(FernHTTPException, fern_http_exception_handler)
     _app.add_exception_handler(starlette.exceptions.HTTPException, http_exception_handler)

@@ -18,7 +18,7 @@ from .resources.movie.service.service import AbstractMovieService
 def register(
     _app: fastapi.FastAPI, *, movie: AbstractMovieService, dependencies: typing.Iterator[fastapi.Depends]
 ) -> None:
-    _app.include_router(__register_service(movie), dependencies)
+    _app.include_router(__register_service(movie), dependencies=typing.Iterator[fastapi.Depends])
 
     _app.add_exception_handler(FernHTTPException, fern_http_exception_handler)
     _app.add_exception_handler(starlette.exceptions.HTTPException, http_exception_handler)

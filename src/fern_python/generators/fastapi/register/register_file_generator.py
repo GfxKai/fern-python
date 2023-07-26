@@ -74,7 +74,7 @@ class RegisterFileGenerator:
                         args=[AST.Expression(parameter_name)],
                     )
                 ),
-                args=[AST.Expression(reg_arg[0]) for reg_arg in FAST_API_REGISTRATION_ARGS],
+                kwargs=FAST_API_REGISTRATION_ARGS,
             )
             if service_initializer.is_in_development:
                 writer.write_line(f"if {parameter_name} is not None:")

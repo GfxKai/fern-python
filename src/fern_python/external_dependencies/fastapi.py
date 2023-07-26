@@ -129,11 +129,14 @@ class FastAPI:
         )
 
     @staticmethod
-    def include_router(*, app_variable: str, router: AST.Expression, args: List[AST.Expression] = []) -> AST.Expression:
+    def include_router(
+        *, app_variable: str, router: AST.Expression, kwargs: List[Tuple[str, AST.Expression]]
+    ) -> AST.Expression:
         return AST.Expression(
             AST.FunctionInvocation(
                 function_definition=AST.Reference(qualified_name_excluding_import=(app_variable, "include_router")),
-                args=[router] + args,
+                args=[router],
+                kwargs=kwargs,
             )
         )
 
