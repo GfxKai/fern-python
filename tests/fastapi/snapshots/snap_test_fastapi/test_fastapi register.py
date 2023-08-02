@@ -8,6 +8,7 @@ import typing
 
 import fastapi
 import starlette
+from fastapi import params
 
 from .core.abstract_fern_service import AbstractFernService
 from .core.exceptions import default_exception_handler, fern_http_exception_handler, http_exception_handler
@@ -37,7 +38,7 @@ def register(
     sysprop: AbstractSyspropService,
     v_2_problem: AbstractV2ProblemService,
     v_2_v_3_problem: AbstractV2V3ProblemService,
-    dependencies: typing.List[fastapi.Depends]
+    dependencies: typing.Sequence[params.Depends]
 ) -> None:
     _app.include_router(__register_service(v_2), dependencies=dependencies)
     _app.include_router(__register_service(admin), dependencies=dependencies)
