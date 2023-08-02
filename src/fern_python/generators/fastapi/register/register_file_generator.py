@@ -8,7 +8,7 @@ from fern_python.source_file_generator import SourceFileGenerator
 from ..context import FastApiGeneratorContext
 from .service_initializer import ServiceInitializer
 
-FAST_API_REGISTRATION_ARGS = [("dependencies", AST.TypeHint.sequence(FastAPI.DependsType))]
+FAST_API_REGISTRATION_ARGS = [("dependencies", AST.TypeHint.optional(AST.TypeHint.sequence(FastAPI.DependsType)))]
 
 
 class RegisterFileGenerator:

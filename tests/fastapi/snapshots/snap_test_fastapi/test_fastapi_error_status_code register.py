@@ -17,7 +17,10 @@ from .resources.movie.service.service import AbstractMovieService
 
 
 def register(
-    _app: fastapi.FastAPI, *, movie: AbstractMovieService, dependencies: typing.Sequence[params.Depends]
+    _app: fastapi.FastAPI,
+    *,
+    movie: AbstractMovieService,
+    dependencies: typing.Optional[typing.Sequence[params.Depends]] = None
 ) -> None:
     _app.include_router(__register_service(movie), dependencies=dependencies)
 

@@ -38,7 +38,7 @@ def register(
     sysprop: AbstractSyspropService,
     v_2_problem: AbstractV2ProblemService,
     v_2_v_3_problem: AbstractV2V3ProblemService,
-    dependencies: typing.Sequence[params.Depends]
+    dependencies: typing.Optional[typing.Sequence[params.Depends]] = None
 ) -> None:
     _app.include_router(__register_service(v_2), dependencies=dependencies)
     _app.include_router(__register_service(admin), dependencies=dependencies)
