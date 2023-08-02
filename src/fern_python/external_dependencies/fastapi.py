@@ -77,7 +77,12 @@ class FastAPI:
 
     JSONResponse = JSONResponse
 
-    DependsType = AST.TypeHint(type=_export("Depends"))
+    DependsType = AST.TypeHint(
+        type=AST.ClassReference(
+            qualified_name_excluding_import=("Depends",),
+            import_=AST.ReferenceImport(module=FAST_API_MODULE, named_import="params"),
+        )
+    )
 
     @staticmethod
     def Depends(dependency: AST.Expression) -> AST.Expression:
