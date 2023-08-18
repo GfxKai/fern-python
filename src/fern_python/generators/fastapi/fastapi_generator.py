@@ -59,6 +59,7 @@ class FastApiGenerator(AbstractGenerator):
             include_union_utils=True,
             frozen=custom_config.pydantic_config.frozen,
             orm_mode=custom_config.pydantic_config.orm_mode,
+            smart_union=custom_config.pydantic_config.smart_union,
         )
 
         context = FastApiGeneratorContextImpl(ir=ir, generator_config=generator_config)
@@ -156,3 +157,10 @@ class FastApiGenerator(AbstractGenerator):
 
     def get_sorted_modules(self) -> None:
         return None
+
+    def is_flat_layout(
+        self,
+        *,
+        generator_config: GeneratorConfig,
+    ) -> bool:
+        return False

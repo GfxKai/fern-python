@@ -15,7 +15,7 @@ from fern_python.codegen.dependency_manager import DependencyManager
 @dataclass(frozen=True)
 class PyProjectTomlPackageConfig:
     include: str
-    _from: str
+    _from: Optional[str] = None
 
 
 class PyProjectToml:
@@ -65,12 +65,20 @@ class PyProjectToml:
 name = "{self.name}"'''
             if self.version is not None:
                 s += "\n" + f'version = "{self.version}"'
-            s += f"""
+            s += """
 description = ""
 readme = "README.md"
-authors = []
+authors = []"""
+            if self.package._from is not None:
+                s += f"""
 packages = [
     {{ include = "{self.package.include}", from = "{self.package._from}"}}
+]
+"""
+            else:
+                s += f"""
+packages = [
+    {{ include = "{self.package.include}"}}
 ]
 """
             return s
@@ -85,10 +93,13 @@ packages = [
             for dep in sorted(self.dependencies, key=lambda dep: dep.name):
                 compatiblity = dep.compatibility
                 # TODO(dsinghvi): assert all enum cases are visited
-                if compatiblity is DependencyCompatibility.EXACT:
+                print(dep.compatibility)
+                if compatiblity == DependencyCompatibility.EXACT:
+                    print(f"{dep.name} is exact")
                     deps += f'{dep.name.replace(".", "-")} = "{dep.version}"\n'
-                elif compatiblity is DependencyCompatibility.GREATER_THAN_OR_EQUAL:
-                    deps += f'{dep.name.replace(".", "-")} >= "{dep.version}"\n'
+                elif compatiblity == DependencyCompatibility.GREATER_THAN_OR_EQUAL:
+                    print(f"{dep.name} is greater than or equal")
+                    deps += f'{dep.name.replace(".", "-")} = ">={dep.version}"\n'
             self.dependencies
             return f"""
 [tool.poetry.dependencies]
