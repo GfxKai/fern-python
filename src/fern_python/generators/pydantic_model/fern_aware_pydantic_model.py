@@ -248,7 +248,7 @@ class FernAwarePydanticModel:
     ) -> PydanticField:
         type_hint = self.get_type_hint_for_type_reference(type_reference)
         default_value = (
-            AST.TypeHint.none()
+            AST.Expression("None")
             if type_hint.is_optional() and self._custom_config.require_optional_fields is False
             else None
         )
